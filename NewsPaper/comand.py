@@ -18,8 +18,7 @@ def zadany():
     cat_sport = Category.objects.create(name="Спорт")
     cat_music = Category.objects.create(name="Музыка")
     cat_cinema = Category.objects.create(name="Кино")
-    cat_IT = Category.objects.create(name="IT")
-
+    cat_polycy = Category.objects.create(name="Политика")
 
     #текст статей\новостей
     text_article_sport_cinema = """статья_спорт_кино_Мильва__статья_спорт_кино_Мильва__статья_спорт_кино_Мильва_
@@ -28,21 +27,21 @@ def zadany():
     text_article_music = """статья_музыка_Мелифаро__статья_музыка_Мелифаро__статья_музыка_Мелифаро_
                             _статья_музыка_Мелифаро__статья_музыка_Мелифаро__"""
 
-    text_news_IT = """новость_IT_Мелифаро__новость_IT_Мелифаро__новость_IT_Мелифаро__новость_IT_Мелифаро__
-                    новость_IT_Мелифаро__новость_IT_Мелифаро__новость_IT_Мелифаро__новость_IT_Мелифаро__"""
+    text_news_polycy = """новость_Политика_Мелифаро__новость_Политика_Мелифаро__новость_Политика_Мелифаро__новость_Политика_Мелифаро__
+                    новость_Политика_Мелифаро__новость_Политика_Мелифаро__новость_Политика_Мелифаро__новость_Политика_Мелифаро__"""
 
     #две статьи и новость
     article_milva = Post.objects.create(author=milva, post_type=Post.stat, title="статья_спорт_кино_Мильва",
                                         text=text_article_sport_cinema)
     article_melifaro = Post.objects.create(author=melifaro, post_type=Post.stat, title="статья_музыка_Мелифаро",
                                         text=text_article_music)
-    news_melifaro = Post.objects.create(author=melifaro, post_type=Post.new, title="новость_IT_Мелифаро", text=text_news_IT)
+    news_melifaro = Post.objects.create(author=melifaro, post_type=Post.new, title="новость_Политика_Мелифаро", text=text_news_polycy)
 
     # присваивание категорий этим объектам
     PostCategory.objects.create(post=article_milva, category=cat_sport)
     PostCategory.objects.create(post=article_milva, category=cat_cinema)
     PostCategory.objects.create(post=article_melifaro, category=cat_music)
-    PostCategory.objects.create(post=news_melifaro, category=cat_IT)
+    PostCategory.objects.create(post=news_melifaro, category=cat_polycy)
 
     # создание комментариев
     comment1 = Comment.objects.create(post=article_milva, user=melifaro.user, text="коммент Мелифаро №1 к статье Мильва")
