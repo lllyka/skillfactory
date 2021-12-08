@@ -88,7 +88,7 @@ def zadany():
     print("")
 
     # лучшая статья
-    best_article = Post.objects.filter(post_type=Post.article).order_by('-rating')[0]
+    best_article = Post.objects.filter(post_type=Post.stat).order_by('-rating')[0]
     print("Лучшая статья")
     print("Дата:", best_article.created)
     print("Автор:", best_article.author.user.username)
