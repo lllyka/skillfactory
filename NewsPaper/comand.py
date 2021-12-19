@@ -97,9 +97,5 @@ def zadany():
     print("Превью:", best_article.preview())
     print("")
     print("Комментарии к ней")
-    for comment in Comment.objects.filter(post=best_article):
-        print("Дата:", comment.created)
-        print("Автор:", comment.user.username)
-        print("Рейтинг:", comment.rating)
-        print("Комментарий:", comment.text)
-        print("")
+
+

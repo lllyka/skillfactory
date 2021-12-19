@@ -35,6 +35,7 @@ class Post(models.Model):
         self.rating += 1
         self.save()
 
+
     def dislike(self):
         self.rating -= 1
         self.save()
@@ -63,4 +64,5 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
 
