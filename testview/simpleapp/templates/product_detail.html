@@ -1,0 +1,41 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет products -->
+{% block title %}
+Products
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, ID которого было передано в адрес -->
+{% block content %}
+<table>
+    <thead>
+        <th>
+            Name
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+    </thead>
+    <tr>
+        <td>
+            {{ product.name|title }}
+        </td>
+        <td>
+            {{ product.category.name|title }}
+        </td>
+        <td>
+            {{ product.price }}
+        </td>
+        <td>
+            {{ product.quantity }}
+        </td>
+    </tr>
+</table>
+{% endblock content %}

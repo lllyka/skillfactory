@@ -1,4 +1,3 @@
-
 {% extends 'flatpages/default.html' %}
 
 {% block title %}
@@ -8,6 +7,7 @@ Post
 
 {% block content %}
     <h1>{{new}}</h1>
+<h2>Вы действительно хотите удалить данную новость?</h2>
     {% if new %}
        <table>
            <tr>
@@ -32,7 +32,7 @@ Post
                        {{new.text}}
                    </td>
                    <td>
-                       {{new.created|date:'D-M-Y h:i'}}
+                       {{new.created}}
                    </td>
                    <td>
                        {{new.author}}
@@ -42,5 +42,7 @@ Post
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
-
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
 {% endblock content %}

@@ -6,7 +6,11 @@
 Products
 {% endblock title %}
 
-<!-- В контенте на странице мы выводим сам товар, ID которого было передано в адрес -->
 {% block content %}
-<h1>{{ product }}</h1>
+<h3>Информация о товаре</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <input type="submit" value="Добавить товар">
+</form>
 {% endblock content %}

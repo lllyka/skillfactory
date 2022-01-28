@@ -8,10 +8,17 @@ Posts
 
 {% block content %}
     <h1>Все новости</h1>
-    <h2> {{ news|length }} </h2>
     <h3>{{ time_now|date:'d M Y' }}</h3>
 
+        <div>
+            <input type="date" id="bday" name="bday">
+        </div>
+
     {% if news %}
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
                 <table>
             <tr>
                 <td>
@@ -24,8 +31,9 @@ Posts
                     Текст
                 </td>
             </tr>
-                    {% for post in news %}
+                    {% for post in filter.qs %}
             <tr>
+
                  <td>
                     {{post.title|Censor:"cens_world"}}
                 </td>
@@ -39,7 +47,30 @@ Posts
                     {% endfor %}
 
         </table>
+<a href="{% url 'post_create' %}">Добавить новoсть или статью</a> <br>
     {% else %}
         <h4>Новостей нет!</h4>
     {% endif %}
+
+{% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+        <a href="?page=1">Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">>>></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+    {% endif %}
+
+{% endif %}
 {% endblock content %}

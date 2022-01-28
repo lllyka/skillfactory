@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+    <h1>Все новости</h1>
+    <h3>{{ time_now|date:'d M Y' }}</h3>
+
+        <div>
+            <input type="date" id="bday" name="bday">
+        </div>
+
+
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+
+{% endblock content %}

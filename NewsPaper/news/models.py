@@ -26,7 +26,7 @@ class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     post_type = models.CharField(max_length=1, choices=POST_TYPE, default=stat)
     created = models.DateTimeField(auto_now_add=True)
-    cats = models.ManyToManyField(Category, through='PostCategory')
+    category = models.ManyToManyField(Category, through='PostCategory')
     title = models.CharField(max_length=256)
     text = models.TextField()
     rating = models.IntegerField(default=0)
@@ -44,6 +44,8 @@ class Post(models.Model):
         size = 124 if len(self.text) > 124 else len(self.text)
         return self.text[:size] + '...'
 
+    def get_absolute_url(self):
+        return f'/new/{self.id}'
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
