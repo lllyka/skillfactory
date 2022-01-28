@@ -2,10 +2,12 @@ from django import template
 
 register = template.Library()
 
-@register.filter(name='Censor')
-
-def Censor(censor_text,cens_world):
-    if cens_world in censor_text:
-        print('***')
-    else:
-        return censor_text
+@register.filter(name='censor')
+def censor(value):
+    cens_words = ['word1', 'word2']
+    text = set(value.split())
+    for i in text:
+        for j in cens_words:
+            if i == j:
+                return value.replace(i, '*' * len(i))
+    return value
