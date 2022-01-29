@@ -45,7 +45,8 @@ class Post(models.Model):
         return self.text[:size] + '...'
 
     def get_absolute_url(self):
-        return f'/new/{self.id}'
+        return f'/news/{self.id}'
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)

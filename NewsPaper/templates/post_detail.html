@@ -7,8 +7,8 @@ Post
 
 
 {% block content %}
-    <h1>{{new}}</h1>
-    {% if new %}
+    <h1>{{news}}</h1>
+    {% if news %}
        <table>
            <tr>
                <td>
@@ -26,16 +26,16 @@ Post
            </tr>
                <tr>
                    <td>
-                       {{new.title}}
+                       {{news.title}}
                    </td>
                    <td>
-                       {{new.text}}
+                       {{news.text}}
                    </td>
                    <td>
-                       {{new.created}}
+                       {{news.created}}
                    </td>
                    <td>
-                       {{new.author}}
+                       {{news.author}}
                    </td>
                </tr>
        </table>

@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Product, Category
 from .filters import ProductFilter
@@ -49,3 +50,7 @@ class ProductDeleteView(DeleteView):
     template_name = 'product_delete.html'
     queryset = Product.objects.all()
     success_url = '/products/'
+
+
+class ProtectedView(LoginRequiredMixin, TemplateView):
+    template_name = 'prodected_page.html'

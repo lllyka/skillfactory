@@ -29,9 +29,11 @@ class PostsList(ListView):
                 form.save()
         return super().get(request, *args, **kwargs)
 
+
 class PostDetail(DetailView):
     template_name = 'post_detail.html'
     queryset = Post.objects.all()
+    context_object_name = 'news'
 
 class PostCreate(CreateView):
     template_name = 'post_create.html'
@@ -49,11 +51,18 @@ class PostDelete(DeleteView):
     template_name = 'post_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+    context_object_name = 'news'
+
 
 class Search(ListView):
     model = Post
     template_name = 'search.html'
     context_object_name = 'search'
     paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
