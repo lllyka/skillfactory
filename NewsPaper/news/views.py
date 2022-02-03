@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from datetime import datetime
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
 from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import redirect
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+
 
 
 class PostsList(ListView):
@@ -16,7 +21,7 @@ class PostsList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['time_now'] = datetime.now()
+        context['time_now'] = datetime.utcnow()
         context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
         context['categories'] = Category.objects.all()
         context['form'] = PostForm()
@@ -35,13 +40,17 @@ class PostDetail(DetailView):
     queryset = Post.objects.all()
     context_object_name = 'news'
 
-class PostCreate(CreateView):
+class PostCreate(CreateView, PermissionRequiredMixin):
     template_name = 'post_create.html'
+    permission_required = ('post_create.html')
     form_class = PostForm
 
-class PostUpdate(UpdateView):
+class PostUpdate(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
     template_name = 'post_create.html'
+    login_required = ('post_create')
+    permission_required = ('post_create.html')
     form_class = PostForm
+
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -66,3 +75,19 @@ class Search(ListView):
         return context
 
 
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'protect/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['is_auth'] = self.request.user.is_authenticated
+        return context
+
+@login_required
+def upgrade_me(request):
+    user = request.user
+    authors_group = Group.objects.get(name='authors')
+    if not request.user.groups.filter(name='authors').exists():
+        authors_group.user_set.add(user)
+    return redirect('/news/')

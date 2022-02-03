@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
+from django.views.generic import View, ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.contrib.auth.models import Group
 from .models import Product, Category
 from .filters import ProductFilter
 from .forms import ProductForm  # импортируем нашу форму
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class Products(ListView):
@@ -29,15 +32,16 @@ class ProductDetailView(DetailView):
 
 
 # дженерик для создания объекта. Надо указать только имя шаблона и класс формы, который мы написали в прошлом юните. Остальное он сделает за вас
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin, TemplateView):
     template_name = 'product_create.html'
     form_class = ProductForm
 
 
 # дженерик для редактирования объекта
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     template_name = 'product_create.html'
     form_class = ProductForm
+    login_required = ('product_update')
 
     # метод get_object мы используем вместо queryset, чтобы получить информацию об объекте, который мы собираемся редактировать
     def get_object(self, **kwargs):
@@ -52,5 +56,24 @@ class ProductDeleteView(DeleteView):
     success_url = '/products/'
 
 
-class ProtectedView(LoginRequiredMixin, TemplateView):
-    template_name = 'prodected_page.html'
+class IndexView(LoginRequiredMixin, TemplateView):
+    template_name = 'protect/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_premium'] = not self.request.user.groups.filter(name = 'premium').exists()
+        return context
+
+@login_required
+def upgrade_me(request):
+    user = request.user
+    premium_group = Group.objects.get(name='premium')
+    if not request.user.groups.filter(name='premium').exists():
+        premium_group.user_set.add(user)
+    return redirect('/')
+
+class MyView(PermissionRequiredMixin, View):
+    permission_required = ('<app>.<action>_<model>',
+                           '<app>.<action>_<model>')
+
+
