@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView, UpdateView
 
 
 
@@ -42,13 +43,13 @@ class PostDetail(DetailView):
 
 class PostCreate(CreateView, PermissionRequiredMixin):
     template_name = 'post_create.html'
-    permission_required = ('post_create.html')
+    permission_required = ('news.add_post')
     form_class = PostForm
 
 class PostUpdate(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
     template_name = 'post_create.html'
     login_required = ('post_create')
-    permission_required = ('post_create.html')
+    permission_required = ('news.change_post')
     form_class = PostForm
 
 
@@ -84,6 +85,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
         context['is_auth'] = self.request.user.is_authenticated
         return context
 
+
 @login_required
 def upgrade_me(request):
     user = request.user
@@ -91,3 +93,4 @@ def upgrade_me(request):
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
     return redirect('/news/')
+
