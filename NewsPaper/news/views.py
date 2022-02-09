@@ -41,12 +41,12 @@ class PostDetail(DetailView):
     queryset = Post.objects.all()
     context_object_name = 'news'
 
-class PostCreate(CreateView, PermissionRequiredMixin):
+class PostCreate(PermissionRequiredMixin,CreateView):
     template_name = 'post_create.html'
     permission_required = ('news.add_post')
     form_class = PostForm
 
-class PostUpdate(UpdateView, LoginRequiredMixin, PermissionRequiredMixin):
+class PostUpdate( LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'post_create.html'
     login_required = ('post_create')
     permission_required = ('news.change_post')
