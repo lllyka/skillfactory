@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from datetime import datetime
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
-from .models import Post, Category
+from .models import Post, Category, Author
 from .filters import PostFilter
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -9,6 +9,9 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string  # импортируем функцию, которая срендерит наш html в текст
 
 
 
@@ -46,7 +49,9 @@ class PostCreate(PermissionRequiredMixin,CreateView):
     permission_required = ('news.add_post')
     form_class = PostForm
 
-class PostUpdate( LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+
+class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'post_create.html'
     login_required = ('post_create')
     permission_required = ('news.change_post')
@@ -85,6 +90,27 @@ class IndexView(LoginRequiredMixin, TemplateView):
         context['is_auth'] = self.request.user.is_authenticated
         return context
 
+class MailSend(ListView):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'posts.html', {})
+
+    def mail_post(self, request, *args, **kwargs):
+        post_mail = Post
+        html_content = render_to_string(
+            'mail_created.html',
+            {})
+
+        msg = EmailMultiAlternatives(
+            subject=f'{post_mail.title} ',
+            body=post_mail.text,  # это то же, что и message
+            from_email='ponialponyal@yandex.ru',
+            to=['illyka@vk.com'],  # это то же, что и recipients_list
+        )
+        msg.attach_alternative(html_content, "text/html")  # добавляем html
+
+        msg.send()  # отсылаем
+
+        return redirect(':posts')
 
 @login_required
 def upgrade_me(request):
@@ -94,3 +120,12 @@ def upgrade_me(request):
         authors_group.user_set.add(user)
     return redirect('/news/')
 
+@login_required
+def subscribe_category(request):
+    user = request.user
+    category = Category.objects.get(pk=int())
+    if user not in category.subscribers.all():
+        category.subscribers.add(user)
+    else:
+        category.subscribers.remove(user)
+    return redirect(request.META.get('/'))

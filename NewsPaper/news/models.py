@@ -12,9 +12,13 @@ class Author(models.Model):
         self.save()
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length = 50, unique = True)
+    subscribers = models.ManyToManyField(User, blank=True)
 
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     stat = 's'

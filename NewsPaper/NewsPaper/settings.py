@@ -163,3 +163,10 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_FORMS = {'signup': 'news.forms.CommonSignupForm'}
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'ponialponyal'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = 'cjdeirfcubnfhjq39'  # пароль от почты
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'ponialponyal@yandex.ru'
