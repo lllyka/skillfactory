@@ -15,7 +15,7 @@
     <p>{{ post.text }}</p>
     <p>Автор: <b>{{ post.author }}</b></p>
     <div>Категории:
-        {% for category in post.get_category.all %}
+        {% for category in post.category.all %}
 
             {{ category.name }}
 
