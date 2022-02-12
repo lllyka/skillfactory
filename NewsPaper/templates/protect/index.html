@@ -11,32 +11,6 @@
 
 <button> <a href="accounts/login">Выйти</a> </button>
 
-<h1>{{ post.title }}</h1>
-    <p>{{ post.text }}</p>
-    <p>Автор: <b>{{ post.author }}</b></p>
-    <div>Категории:
-        {% for category in post.category.all %}
 
-            {{ category.name }}
-
-            <!-- если пользователь авторизован, то показываем форму подписки -->
-            {% if is_auth %}
-            <form action="/subscribe/" method="POST">
-                {% csrf_token %}
-
-                <!-- передаём через скрытое поле id категории -->
-                <input type="hidden" name="cat_id" value="{{ cat.id }}">
-                <!-- если пользователя нет в категориях то отображаем кнопку Подписаться-->
-                {% if current_user not in category.subscribers.all %}
-                <input type="submit" name="subscribe_button" value="Подписаться">
-                {% else %}
-                <!-- если пользователь есть в категориях то отображаем кнопку Отписаться-->
-                <input type="submit" name="unsubscribe_button" value="Отписаться">
-                {% endif %}
-            </form>
-            {% endif %}
-
-        {% endfor %} </div>
-    <p><i>Дата: {{ new.time_post|date:'d E Y, H:i' }}</i></p>
 
 {% endblock %}

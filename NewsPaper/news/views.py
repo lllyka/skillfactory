@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from datetime import datetime
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView
+from django.views.generic import ListView, DetailView, DeleteView, TemplateView
 from .models import Post, Category, Author
 from .filters import PostFilter
 from .forms import PostForm
@@ -48,6 +48,14 @@ class PostCreate(PermissionRequiredMixin,CreateView):
     template_name = 'post_create.html'
     permission_required = ('news.add_post')
     form_class = PostForm
+
+    def mail_post(self, request, *args, **kwargs):
+        send_mail(
+            subject=f'{Post.title}',
+            message='Привет, новая статья в твоем разделе!',
+            from_email='ponialponyal@yandex.ru',
+            recipient_list=['illyka@yandex.ru']
+        )
 
 
 
@@ -99,7 +107,6 @@ class MailSend(ListView):
         html_content = render_to_string(
             'mail_created.html',
             {})
-
         msg = EmailMultiAlternatives(
             subject=f'{post_mail.title} ',
             body=post_mail.text,  # это то же, что и message
@@ -110,7 +117,8 @@ class MailSend(ListView):
 
         msg.send()  # отсылаем
 
-        return redirect(':posts')
+
+        return redirect('post_mail:mail_created')
 
 @login_required
 def upgrade_me(request):

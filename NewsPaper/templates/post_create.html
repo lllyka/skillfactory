@@ -9,4 +9,26 @@ Posts
     {{ form }}
     <input type="submit" value="Добавить статью">
 </form>
+
+<h1>{{ post.title }}</h1>
+    <p>{{ post.text }}</p>
+    <p>Автор: <b>{{ post.author }}</b></p>
+    <div>Категории:
+        {% for category in post.category.all %}
+
+            {{ category.name }}
+
+            {% if is_auth %}
+            <form action="/subscribed/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="cat_id" value="{{ cat.id }}">
+                {% if current_user not in category.subscribers.all %}
+                <input type="submit" name="subscribe_button" value="Подписаться">
+                {% else %}
+                <input type="submit" name="unsubscribe_button" value="Отписаться">
+                {% endif %}
+            </form>
+            {% endif %}
+
+        {% endfor %} </div>
 {% endblock content %}

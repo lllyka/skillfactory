@@ -29,6 +29,9 @@ Posts
                 <td>
                     Текст
                 </td>
+                 <td>
+                    Категория
+                </td>
             </tr>
                     {% for post in filter.qs %}
             <tr>
@@ -45,6 +48,9 @@ Posts
                 </td>
                 <td>
                     {{post.text|truncatechars:50}}
+                </td>
+                <td>
+                    {{post.category}}
                 </td>
             </tr>
                     {% endfor %}
