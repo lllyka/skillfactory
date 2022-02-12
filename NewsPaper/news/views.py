@@ -94,7 +94,7 @@ class MailSend(ListView):
     def get(self, request, *args, **kwargs):
         return render(request, 'posts.html', {})
 
-    def mail_post(self, request, *args, **kwargs):
+    def POST(self, request, *args, **kwargs):
         post_mail = Post
         html_content = render_to_string(
             'mail_created.html',
@@ -121,7 +121,7 @@ def upgrade_me(request):
     return redirect('/news/')
 
 @login_required
-def subscribe_category(request):
+def subscribed_category(request):
     user = request.user
     category = Category.objects.get(pk=int())
     if user not in category.subscribers.all():
