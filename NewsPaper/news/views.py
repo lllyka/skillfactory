@@ -6,7 +6,7 @@ from .filters import PostFilter
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail
@@ -111,7 +111,7 @@ class MailSend(ListView):
             subject=f'{post_mail.title} ',
             body=post_mail.text,  # это то же, что и message
             from_email='ponialponyal@yandex.ru',
-            to=['illyka@vk.com'],  # это то же, что и recipients_list
+            to=['illyka@yandex.ru'],  # это то же, что и recipients_list
         )
         msg.attach_alternative(html_content, "text/html")  # добавляем html
 
@@ -129,11 +129,12 @@ def upgrade_me(request):
     return redirect('/news/')
 
 @login_required
-def subscribed_category(request):
-    user = request.user
-    category = Category.objects.get(pk=int())
-    if user not in category.subscribers.all():
-        category.subscribers.add(user)
-    else:
-        category.subscribers.remove(user)
+def subscribed_category(request, *args, **kwargs):
+    post = Post.objects.get(pk=kwargs['pk'])
+    for category in post.category.all():
+        user = User.objects.get(pk=request.user.id)
+        if user not in category.subscribers.all():
+            category.subscribers.add(user)
+        else:
+            category.subscribers.remove(user)
     return redirect(request.META.get('/'))
