@@ -99,7 +99,7 @@ def zadany():
     print("Комментарии к ней")
 
 
-TEMPLATES = [
+'''TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
@@ -115,3 +115,31 @@ TEMPLATES = [
     },
 ]
 
+Категории:
+{ %
+for subscribers in post.category.all %}
+{{category.name}}
+
+{ % if is_auth %}
+< form
+action = "/subscribed/"
+method = "POST" >
+{ % csrf_token %}
+< input
+type = "hidden"
+name = "cat_id"
+value = "{{ category.id }}" >
+{ % if current_user not in category.subscribers.all %}
+< input
+type = "submit"
+name = "subscribed"
+value = "Подписаться" >
+{ % else %}
+< input
+type = "submit"
+name = "unsubscribed"
+value = "Отписаться" >
+{ % endif %}
+< / form >
+{ % endif %}
+{ % endfor %}'''

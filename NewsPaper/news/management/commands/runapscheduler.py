@@ -13,13 +13,6 @@ from django.core.mail import send_mail
 logger = logging.getLogger(__name__)
 
 
-def my_job():
-    send_mail(
-        'Job mail',
-        'hello from job!',
-        from_email='ponialponyal@yandex.ru',
-        recipient_list=['illyka@vk.com'],
-    )
 
 
 def delete_old_job_executions(max_age=604_800):
@@ -37,7 +30,7 @@ class Command(BaseCommand):
         # добавляем работу нашему задачнику
         scheduler.add_job(
         my_job,
-        trigger=CronTrigger(week="*/1"),
+        trigger=CronTrigger(day_of_week="Monday"),
         id = "my_job",
         max_instances = 1,
         replace_existing = True,
@@ -65,9 +58,18 @@ class Command(BaseCommand):
             scheduler.shutdown()
             logger.info("Scheduler shut down successfully!")
 
+        def my_job():
+            send_mail(
+             'Job mail',
+             'hello from job!',
+              from_email='ponialponyal@yandex.ru',
+              recipient_list=['illyka@yandex.ru'],
+              )
+        scheduler.my_job()
+
 '''logger = logging.getLogger(__name__)
 
-
+  
 # наша задача по выводу текста на экран
 def my_job():
     #  Your job processing logic here...

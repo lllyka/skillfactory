@@ -57,8 +57,6 @@ class PostCreate(PermissionRequiredMixin,CreateView):
             recipient_list=['illyka@yandex.ru']
         )
 
-
-
 class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'post_create.html'
     login_required = ('post_create')
@@ -105,8 +103,7 @@ class MailSend(ListView):
     def POST(self, request, *args, **kwargs):
         post_mail = Post
         html_content = render_to_string(
-            'mail_created.html',
-            {})
+            'mail_created.html',)
         msg = EmailMultiAlternatives(
             subject=f'{post_mail.title} ',
             body=post_mail.text,  # это то же, что и message
