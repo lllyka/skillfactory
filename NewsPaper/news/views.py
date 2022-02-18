@@ -100,7 +100,7 @@ class MailSend(ListView):
     def get(self, request, *args, **kwargs):
         return render(request, 'posts.html', {})
 
-    def POST(self, request, *args, **kwargs):
+    def post_mail_for_users(self, request, *args, **kwargs):
         post_mail = Post
         html_content = render_to_string(
             'mail_created.html',)
@@ -116,6 +116,9 @@ class MailSend(ListView):
 
 
         return redirect('post_mail:mail_created')
+
+
+
 
 @login_required
 def upgrade_me(request):
