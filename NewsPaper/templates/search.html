@@ -1,11 +1,13 @@
 {% extends 'flatpages/default.html' %}
 
 {% load custom_filters %}
+{% load cache %)
 
 {% block title %}
 Posts
 {% endblock title %}
 
+{% cache 30 search %}
 {% block content %}
     <h1>Все новости</h1>
     <h3>{{ time_now|date:'d M Y' }}</h3>
@@ -21,3 +23,4 @@ Posts
 </form>
 
 {% endblock content %}
+{% endcache %}

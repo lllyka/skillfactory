@@ -6,7 +6,7 @@ from .models import Post
 from django.core.mail import EmailMultiAlternatives
 
 @shared_task
-def post_mail_for_users(self, request, *args, **kwargs):
+def post_mail_for_users():
     post_mail = Post
     html_content = render_to_string(
         'mail_created.html', )

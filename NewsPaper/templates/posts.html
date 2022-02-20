@@ -2,6 +2,8 @@
 
 {% load custom_filters %}
 
+{% load cache %}
+
 {% block title %}
 Posts
 {% endblock title %}
@@ -13,7 +15,7 @@ Posts
         <div>
             <input type="date" id="bday" name="bday">
         </div>
-
+    {% cache 30 menu %}
     {% if news %}
                 <table>
             <tr>
@@ -33,6 +35,7 @@ Posts
                     Категория
                 </td>
             </tr>
+
                     {% for post in filter.qs %}
             <tr>
                  <td>
@@ -55,11 +58,13 @@ Posts
             </tr>
                     {% endfor %}
 
+
         </table>
 <a href="{% url 'post_create' %}">Добавить новoсть или статью</a> <br>
     {% else %}
         <h4>Новостей нет!</h4>
     {% endif %}
+{% endcache %}
 
 {% if is_paginated %}
 

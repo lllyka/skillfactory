@@ -44,6 +44,15 @@ class PostDetail(DetailView):
     queryset = Post.objects.all()
     context_object_name = 'news'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        subscribers = []
+        for category in kwargs['object'].category.all():
+            subscribers += category.subscribers.all()
+        user = User.objects.filter(pk=self.request.user.pk).first() if self.request.user else None
+        context['need_subscribed'] = user not in subscribers
+        return context
+
 class PostCreate(PermissionRequiredMixin,CreateView):
     template_name = 'post_create.html'
     permission_required = ('news.add_post')
@@ -129,12 +138,9 @@ def upgrade_me(request):
     return redirect('/news/')
 
 @login_required
-def subscribed_category(request, *args, **kwargs):
+def subscribe(request, *args, **kwargs):
     post = Post.objects.get(pk=kwargs['pk'])
     for category in post.category.all():
         user = User.objects.get(pk=request.user.id)
-        if user not in category.subscribers.all():
-            category.subscribers.add(user)
-        else:
-            category.subscribers.remove(user)
-    return redirect(request.META.get('/'))
+        category.subscribers.add(user)
+    return redirect('/news')
