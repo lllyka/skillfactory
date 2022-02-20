@@ -12,7 +12,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string  # импортируем функцию, которая срендерит наш html в текст
-
+from django.core.cache import cache
 
 
 class PostsList(ListView):
@@ -53,7 +53,16 @@ class PostDetail(DetailView):
         context['need_subscribed'] = user not in subscribers
         return context
 
-class PostCreate(PermissionRequiredMixin,CreateView):
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+        return obj
+
+
+class PostCreate(PermissionRequiredMixin, CreateView):
     template_name = 'post_create.html'
     permission_required = ('news.add_post')
     form_class = PostForm
