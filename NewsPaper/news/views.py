@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from datetime import datetime
 from django.views.generic import ListView, DetailView, DeleteView, TemplateView
-from .models import Post, Category, Author
+from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -9,8 +9,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
-from django.core.mail import send_mail
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string  # импортируем функцию, которая срендерит наш html в текст
 from django.core.cache import cache
 
@@ -70,7 +69,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     def mail_post(self, request, *args, **kwargs):
         send_mail(
             subject=f'{Post.title}',
-            message='Привет, новая статья в твоем разделе!',
+            message=f'Привет, новая статья в твоем разделе!',
             from_email='ponialponyal@yandex.ru',
             recipient_list=['illyka@yandex.ru']
         )
