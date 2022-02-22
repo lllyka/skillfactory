@@ -11,8 +11,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'action_every_monday_8am': {
-        'task': 'post_mail_for_users',
-        'schedule': crontab(hour=8, minute=0, day_of_week='monday'),
-        'args': (1),
+        'task': 'news.tasks.post_mail_for_users',
+        'schedule': crontab(),
     },
 }

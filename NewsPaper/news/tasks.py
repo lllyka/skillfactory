@@ -1,6 +1,6 @@
 from celery import shared_task
 import time
-from .views import MailSend,DetailView,subscribed_category,send_mail
+from .views import MailSend,DetailView,subscribe,send_mail
 from django.template.loader import render_to_string
 from .models import Post
 from django.core.mail import EmailMultiAlternatives

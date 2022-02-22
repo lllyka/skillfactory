@@ -119,8 +119,9 @@ class MailSend(ListView):
 
     def post_mail_for_users(self, request, *args, **kwargs):
         post_mail = Post
+        example_dict = {str(Post.author): str(Post.category)}
         html_content = render_to_string(
-            'mail_created.html',)
+            'mail_created.html', example_dict)
         msg = EmailMultiAlternatives(
             subject=f'{post_mail.title} ',
             body=post_mail.text,  # это то же, что и message
