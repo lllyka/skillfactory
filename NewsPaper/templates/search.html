@@ -7,8 +7,8 @@
 Posts
 {% endblock title %}
 
-{% cache 30 search %}
 {% block content %}
+
     <h1>Все новости</h1>
     <h3>{{ time_now|date:'d M Y' }}</h3>
 
@@ -16,11 +16,12 @@ Posts
             <input type="date" id="bday" name="bday">
         </div>
 
-
 <form method="GET">
     {{ filter.form }}
-    <input type="submit" value="Найти">
+     <input type="submit" value="Найти">
+
+
 </form>
 
 {% endblock content %}
-{% endcache %}
+
