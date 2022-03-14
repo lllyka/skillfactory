@@ -14,6 +14,7 @@ from django.template.loader import render_to_string  # импортируем ф
 from django.core.cache import cache
 
 
+
 class PostsList(ListView):
     model = Post
     template_name = 'posts.html'

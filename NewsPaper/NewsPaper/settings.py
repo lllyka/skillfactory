@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news',
+    #'news.apps.AppointmentConfig',
     'django.contrib.sites',
     'django.contrib.flatpages',
     'fpages',
