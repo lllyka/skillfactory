@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd0d1b4a-1a3a-4593-b4de-b97d23cf34f5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/056916b3be5032a591f9ebf32190b7f8.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/056916b3be5032a591f9ebf32190b7f8.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/57c5822ab08ed23c0e6bbb6773a18872.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/57c5822ab08ed23c0e6bbb6773a18872.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/5abf10b5a1f79176376228a992a9424d.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/5abf10b5a1f79176376228a992a9424d.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/63cb79e39e3631bb5aeb44dc54589eed.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/63cb79e39e3631bb5aeb44dc54589eed.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/64d19ab72915207b517497c694743bce.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/64d19ab72915207b517497c694743bce.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/6d5113fe46bc38f51bae38d41cac60da.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/6d5113fe46bc38f51bae38d41cac60da.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/91cc181979a27ca39083d54dab8e06b0.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/91cc181979a27ca39083d54dab8e06b0.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/a8f162f8024dd83c0e38dd3739645657.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/a8f162f8024dd83c0e38dd3739645657.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/b246e737591dda438b137a86f72e5450.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/b246e737591dda438b137a86f72e5450.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/bcdb8fdea0fdc3d90b025c3bb02531a1.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/bcdb8fdea0fdc3d90b025c3bb02531a1.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/d817734d09605cc28c8c1be73abbc193.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/d817734d09605cc28c8c1be73abbc193.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/cache_files/ef926ebe8d7cd518601761cac179f7f8.djcache" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/cache_files/ef926ebe8d7cd518601761cac179f7f8.djcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/news/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/news/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NewsPaper/templates/protect/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../NewsPaper/templates/protect/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="26TFBKlq4ia23T8ST3WqL3G3MvO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd0d1b4a-1a3a-4593-b4de-b97d23cf34f5" name="Changes" comment="" />
+      <created>1647439533035</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647439533035</updated>
+    </task>
+    <servers />
+  </component>
+</project>
