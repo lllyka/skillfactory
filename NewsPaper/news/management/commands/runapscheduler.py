@@ -2,6 +2,7 @@ import logging
 
 from collections import defaultdict
 import datetime
+from django.utils import timezone
 
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
@@ -54,27 +55,30 @@ def send_posts_weekly():
 
 
 
+# функция, которая будет удалять неактуальные задачи
 def delete_old_job_executions(max_age=604_800):
     """This job deletes all apscheduler job executions older than `max_age` from the database."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
 
 class Command(BaseCommand):
-    help = "Runs apscheduler."
+    help = "Runs apscheduler"
 
     def handle(self, *args, **options):
         scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(), "default")
 
-        # добавляем работу нашему задачнику
         scheduler.add_job(
-        my_job,
-        trigger=CronTrigger(day_of_week="Monday"),
-        id = "my_job",
-        max_instances = 1,
-        replace_existing = True,
+            send_posts_weekly,
+            trigger=CronTrigger(day_of_week="mon",
+                                hour="09",
+                                minute="00"
+                                ),
+            id="send_posts_weekly",
+            max_instances=1,
+            replace_existing=True,
         )
-        logger.info("Added job 'my_job'.")
+        logger.info("Added job 'send_posts_weekly'.")
 
         scheduler.add_job(
             delete_old_job_executions,
@@ -96,13 +100,4 @@ class Command(BaseCommand):
             logger.info("Stopping scheduler...")
             scheduler.shutdown()
             logger.info("Scheduler shut down successfully!")
-
-        def my_job():
-            send_mail(
-             'Job mail',
-             'hello from job!',
-              from_email='ponialponyal@yandex.ru',
-              recipient_list=['illyka@yandex.ru'],
-              )
-        scheduler.my_job()
 
