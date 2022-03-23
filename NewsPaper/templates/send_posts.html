@@ -1,10 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>{{ subject }}</title>
 </head>
 <body>
-$END$
+    <h2>{{ subject }}</h2>
+
+    {% for post in posts %}
+    <p><a href="{{ post.id }}" target="_blank">{{ post.title }}</a> {{ post.preview }}</p>
+    {% endfor %}
 </body>
 </html>
