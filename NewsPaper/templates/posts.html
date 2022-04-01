@@ -53,7 +53,9 @@ Posts
                     {{post.text |truncatechars:50}}
                 </td>
                 <td>
-                    {{post.category.all}}
+                    {% for cat in post.category.all %}
+                       {{cat.name}}
+                    {% endfor %}
                 </td>
             </tr>
                     {% endfor %}
