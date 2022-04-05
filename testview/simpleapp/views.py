@@ -32,9 +32,10 @@ class ProductDetailView(DetailView):
 
 
 # дженерик для создания объекта. Надо указать только имя шаблона и класс формы, который мы написали в прошлом юните. Остальное он сделает за вас
-class ProductCreateView(CreateView, LoginRequiredMixin, TemplateView):
+class ProductCreateView(CreateView, LoginRequiredMixin, TemplateView, PermissionRequiredMixin):
     template_name = 'product_create.html'
     form_class = ProductForm
+    permission_required = ('products.add_products')
 
 
 # дженерик для редактирования объекта

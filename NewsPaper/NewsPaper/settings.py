@@ -195,3 +195,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 
+LOCALE_PATH = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+

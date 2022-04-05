@@ -2,6 +2,11 @@ from django.forms import ModelForm, BooleanField  # Импортируем true-
 from .models import Product
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
+from allauth.account import forms
+from django.forms import ModelForm, Form, HiddenInput
+from .models import Product
+from allauth.account.forms import SignupForm
+from django.contrib.auth.models import Group
 
 
 class ProductForm(ModelForm):

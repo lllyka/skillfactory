@@ -7,7 +7,7 @@ urlpatterns = [
     path('', cache_page(60*5)(PostsList.as_view())),
     path('protect/', IndexView.as_view()),
     path('<int:pk>', (PostDetail.as_view()), name='post_detail'),
-    path('add/', cache_page(60*5)(PostCreate.as_view()), name='post_create'),
+    path('add/', (PostCreate.as_view()), name='post_create'),
     path('search/', Search.as_view(), name='search'),
     path('<int:pk>/edit', cache_page(60*5)(PostUpdate.as_view()), name='post_update'),
     path('<int:pk>/delete', PostDelete.as_view(), name='post_delete'),

@@ -37,6 +37,7 @@ Posts
             </tr>
 
                     {% for post in filter.qs %}
+
             <tr>
                  <td>
                      <a href="{% url 'post_detail' post.id %}">{{ post.title | censor }}</a>

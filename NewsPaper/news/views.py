@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from datetime import datetime
 from django.views.generic import ListView, DetailView, DeleteView, TemplateView
-from .models import Post, Category
+from .models import Post, Category, Author
 from .filters import PostFilter
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -66,6 +66,14 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     template_name = 'post_create.html'
     permission_required = ('news.add_post')
     form_class = PostForm
+
+    """def get_initial(self):
+        initial = super().get_initial()
+        user = self.request.user
+        author = Author.objects.get(author=user)
+        initial['author'] = author
+        return initial"""
+
 
     def mail_post(self, request, *args, **kwargs):
         send_mail(

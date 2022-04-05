@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+from allauth.account import forms
+from django.forms import ModelForm, Form, HiddenInput
 from .models import Post
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
@@ -9,7 +10,9 @@ class PostForm(ModelForm):
         model = Post
         fields = ['author', 'text', 'category', 'title']
 
-
+    """widgets = {
+        'author': forms.HiddenInput(),
+    }"""
 class CommonSignupForm(SignupForm):
 
     def save(self, request):

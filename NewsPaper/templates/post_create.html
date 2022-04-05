@@ -3,7 +3,6 @@
 {% load cache %}
 Posts
 {% endblock title %}
-{% cache 30 add %}
 {% block content %}
 <h3>Новость или статья</h3>
 <form method="POST">
@@ -12,4 +11,3 @@ Posts
     <input type="submit" value="Добавить статью">
 </form>
 {% endblock content %}
-{% endcache %}
