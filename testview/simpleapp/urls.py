@@ -17,5 +17,6 @@ urlpatterns = [
     path('create/<int:pk>', ProductUpdateView.as_view(), name='product_update'),
     path('delete/<int:pk>', ProductDeleteView.as_view(), name='product_delete'),
     path('accounts/', IndexView.as_view()),
-    path('upgrade/', upgrade_me, name = 'upgrade')
+    path('upgrade/', upgrade_me, name = 'upgrade'),
+
 ]

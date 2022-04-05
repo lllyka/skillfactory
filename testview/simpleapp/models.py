@@ -2,12 +2,16 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.shortcuts import reverse
 from django.core.cache import cache
+from django.utils.translation import gettext as _
+from django.utils.translation import pgettext_lazy # импортируем «ленивый» геттекст с подсказкой
+
+
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
     price = models.FloatField(validators=[MinValueValidator(0.0, 'Price should be >= 0.0')])
     quantity = models.IntegerField(validators=[MinValueValidator(0, 'Quantity should be >= 0')])
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name=pgettext_lazy('help text for Products model', 'This is the help text'))
     description = models.CharField(max_length=200)
 
     # допишем свойство, которое будет отображать, есть ли товар на складе
@@ -35,7 +39,7 @@ class Product(models.Model):
 
     # категории товаров: именно на них ссылается модель товара
 class Category(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, help_text=_('category name'))
 
     def __str__(self):
         return f'{self.name}'

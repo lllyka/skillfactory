@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation', # обязательно впишите его перед админом
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -159,3 +160,14 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_FORMS = {'signup': 'simpleapp.forms.BasicSignupForm'}
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+LANGUAGE_CODE = 'ru'
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Русский')
+]

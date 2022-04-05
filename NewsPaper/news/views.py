@@ -12,7 +12,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string  # импортируем функцию, которая срендерит наш html в текст
 from django.core.cache import cache
+import logging
 
+logger = logging.getLogger(__name__)
 
 
 class PostsList(ListView):

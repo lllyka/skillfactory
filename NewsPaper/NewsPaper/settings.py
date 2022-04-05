@@ -182,6 +182,8 @@ EMAIL_HOST_PASSWORD = 'cjdeirfcubnfhjq39'  # пароль от почты
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'ponialponyal@yandex.ru'
 
+MAIL_ADMINS = ['ponialponyal@yandex.ru', ]
+
 # формат даты, которую будет воспринимать наш задачник (вспоминаем модуль по фильтрам)
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
@@ -195,8 +197,115 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 
-LOCALE_PATH = [
+LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'style': '{',
+    'formatters': {
+        'f_debug': {
+            'format': '%(asctime)s %(levelname)s %(message)s'
+        },
+        'f_warning': {
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s'
+        },
+        'f_error': {
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s %(exc_info)s'
+        },
+        'f_error_noexc': {
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s'
+        },
+        'ff_general_info': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console_debug': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'f_debug',
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'f_warning',
+        },
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'f_error',
+        },
+        'gen_file_info': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'ff_general_info',
+            'filename': os.path.join(BASE_DIR, 'logs/general.log'),
+        },
+        'err_file_info': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'f_error',
+            'filename': os.path.join(BASE_DIR, 'logs/errors.log'),
+        },
+        'sec_file_info': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'ff_general_info',
+            'filename': os.path.join(BASE_DIR, 'logs/security.log'),
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'f_error_noexc',
+        },
+    },
+    'loggers': {
+        'news.views': {
+            'handlers': ['console_debug', 'console_warning', 'console_error'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console_debug', 'console_warning', 'console_error', 'gen_file_info'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['err_file_info', 'mail_admins'],
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['err_file_info', 'mail_admins'],
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['err_file_info'],
+            'propagate': False,
+        },
+        'django.db_backends': {
+            'handlers': ['err_file_info'],
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['sec_file_info'],
+            'propagate': False,
+        },
+    },
+}
